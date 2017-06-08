@@ -3,7 +3,7 @@
     <version value="1"/>
     <list>
         <mapping class="com.jiali.coolweather.db.City"/>
-        <mapping class="com.jiali.coolweather.db.Country"/>
+        <mapping class="com.jiali.coolweather.db.County"/>
         <mapping class="com.jiali.coolweather.db.Province"/>
     </list>
 </litepla>
