@@ -9,5 +9,5 @@
         android:id="@+id/choose_area_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="com.jiali.coolweather.Fragment.ChooseAreaFragment"/>
+        android:name="com.jiali.coolweather.fragment.ChooseAreaFragment"/>
 </FrameLayout>

@@ -1,11 +1,10 @@
-package com.jiali.coolweather.Fragment;
+package com.jiali.coolweather.fragment;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +15,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.jiali.coolweather.Activity.WeatherActivity;
+import com.jiali.coolweather.activity.MainActivity;
+import com.jiali.coolweather.activity.WeatherActivity;
 import com.jiali.coolweather.R;
 import com.jiali.coolweather.db.City;
 import com.jiali.coolweather.db.County;
@@ -72,7 +72,7 @@ public class ChooseAreaFragment extends Fragment {
         titleText= (TextView) view.findViewById(R.id.title_text);
         backButton= (Button) view.findViewById(R.id.back_button);
         listView= (ListView) view.findViewById(R.id.list_view);
-        adapter=new ArrayAdapter<>(getContext(),android.R.layout.simple_list_item_1,datalist);
+        adapter=new ArrayAdapter<>(getContext(),R.layout.my_list_item,datalist);
         listView.setAdapter(adapter);
         return view;
     }
@@ -97,11 +97,20 @@ public class ChooseAreaFragment extends Fragment {
                         break;
                     case LEVEL_COUNTY:
                         String weatherId=countyList.get(position).getWeatherId();
-                        Intent intent=new Intent(getActivity(), WeatherActivity.class);
-                        intent.putExtra("weather_id",weatherId);
-                        LogUtil.e("ChooseAreaFragment","onItemClick LEVEL_COUNTY weather_id="+weatherId);
-                        startActivity(intent);
-                        getActivity().finish();
+                        //判断当前在哪个Activity
+                        if (getActivity() instanceof MainActivity){
+                            Intent intent=new Intent(getActivity(), WeatherActivity.class);
+                            intent.putExtra("weather_id",weatherId);
+                            LogUtil.e("ChooseAreaFragment","onItemClick LEVEL_COUNTY weather_id="+weatherId);
+                            startActivity(intent);
+                            getActivity().finish();
+                        }else if (getActivity() instanceof WeatherActivity){
+                            WeatherActivity activity= (WeatherActivity) getActivity();
+                            activity.drawerLayout.closeDrawers();
+                            activity.swipeRefresh.setRefreshing(true);
+                            activity.requestWeather(weatherId);
+                        }
+
                         break;
                     default:
                         break;

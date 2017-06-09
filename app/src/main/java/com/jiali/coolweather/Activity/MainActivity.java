@@ -1,4 +1,4 @@
-package com.jiali.coolweather.Activity;
+package com.jiali.coolweather.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
